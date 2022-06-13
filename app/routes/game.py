@@ -14,7 +14,12 @@ template = init_template()
 @router.get("/")
 def play_get(request: Request, first_game: bool = True) -> Response:
     """Front-end for the game. Checks if there are saved games to load,
-    otherwise starts a new game."""
+    otherwise starts a new game.
+
+    Args:
+        request: The request object. Needed by Jinja.
+        first_game: Determines if user will see a list of game save files.
+    """
 
     if db.number_of_saved_games() != 0:
         first_game = False
@@ -97,6 +102,18 @@ def results_post(
     player_2_action: str = Form(..., max_length=1),
     doc_id: int = Form(None),
 ):
+    """Receives the user actions and determines the winner, then updates
+    the database with game data.
+
+    Args:
+        request: Client request. Needed by Jinja.
+        player_1_action: User action for player 1.
+        player_2_action: User action for player 2.
+        doc_i: Unique document id of the TinyDB document.
+    Returns:
+        _dict_: Right now, just dictionary of game data. Need to
+        change to Jinja response.
+    """
 
     if not user_action(player_1_action):
         return template.TemplateResponse(
