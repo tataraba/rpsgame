@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block game %}
+    <p>Welcome to a simple game of tic tac toe. Just kidding. This is Rock, Paper, Scissors...</p>
+    <p>The rules are simple: Rock beats scissors, scissors beats paper, and paper beats rock.</p>
+
+{% if first_game %}
+    <p>Enter a name for each player. If no name is entered for Player 2, you will face off against the computer!</p>
+    <form method="post" id="new-game" enctype="multipart/form-data" action="play">
+        <p>
+        <input type="text" name="player_1" placeholder="Player 1" required>
+        <label for="player_1">Player 1</label>
+        </p>
+        <p>    
+        <input type="text" name="player_2" placeholder="Computer">
+        <label for="player_2">Player 2</label>
+        </p>
+        <p>
+        <button type="submit" form="new-game" value="Submit">Start Game</button>
+        </p>
+    </form>
+{% else %}
+    <p>If you want to load a saved game, select one from the list and start the game.</p>
+    <form method="post" id="load-game" enctype="multipart/form-data" action="play">
+        <select name="save_game_id">
+            {% for game in games %}
+                <option value="{{ game }}">{{ game }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit" form="load-game" value="Submit">Load Game</button>
+    </form>
+    <hr>
+    <p>Otherwise, if you want to start a new game, enter a name for each player. If no name is entered for Player 2, you will face off against the computer!</p>
+    <form method="post" id="new-game" enctype="multipart/form-data" action="play">
+        <p>
+        <input type="text" name="player_1" placeholder="Player 1" required>
+        <label for="player_1">Player 1</label>
+        </p>
+        <p>    
+        <input type="text" name="player_2" placeholder="Computer">
+        <label for="player_2">Player 2</label>
+        </p>
+        <p>
+        <button type="submit" form="new-game" value="Submit">Start Game</button>
+        </p>
+    </form>
+{% endif %}
+{% endblock %}

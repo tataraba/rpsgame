@@ -1,0 +1,7 @@
+fastapi
+uvicorn
+tinydb
+pytest
+requests
+python-multipart
+jinja2

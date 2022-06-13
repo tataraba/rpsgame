@@ -1,0 +1,14 @@
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = "-l -s -v"
+testpaths = [
+    "tests",
+]
+log_cli = "True"
+log_auto_indent = "False"
+log_cli_level = "INFO"
+log_format = "%(levelname)s | %(asctime)s | %(message)s"
+pythonpath = "app"
+
+[mypy]
+plugins = "tinydb.mypy_plugin"

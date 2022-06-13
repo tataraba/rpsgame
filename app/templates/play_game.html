@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+    
+    {% block game %}
+    {% if game_loaded %}
+        <h2>Resume Game&mdash;{{game_data.save_file_name}} </h2>
+        <p>Remember, each player must enter their choice into the appropriate field.</p>
+        <ul>
+            <li>"R" or "r" for ROCK</li>
+            <li>"P" or "p" for PAPER</li>
+            <li>"S" or "s" for SCISSORS</li>
+        </ul>
+        <p>When both players have entered their choice, click on "Shoot!"</p>
+        <hr>
+        <form method="post" id="process-game" enctype="multipart/form-data" action="results">
+            <input type="hidden" name="doc_id" value="{{ game_data.doc_id }}">
+            <p>
+            <input type="password" name="player_1_action" maxlength=1 placeholder="*" required>
+            <label for="player_1_action"> {{ game_data.player_1_name }} </label>
+            </p>
+            <p>
+                {% if game_data.game_mode == "single_player" %}
+                    <input type="text" name="player_2_action" value="{{computer_action}}" maxlength=1 readonly="readonly" placeholder="Computer choice hidden">
+                    <label for="player_2_action"> {{ game_data.player_2_name }} </label>
+                {% else %}
+                    <input type="password" name="player_2_action" maxlength=1 placeholder="*">
+                    <label for="player_2_action"> {{ game_data.player_2_name }} </label>
+                {% endif %}
+            </p>
+            <p>
+            ROCK, PAPER, SCISSORS...
+            <button type="submit" value="Submit">Shoot!</button>
+            </p>
+
+        {% else %}
+
+    <h2>Instructions</h2>
+    <p>Each player must enter their choice into the appropriate field.</p>
+    <ul>
+        <li>"R" or "r" for ROCK</li>
+        <li>"P" or "p" for PAPER</li>
+        <li>"S" or "s" for SCISSORS</li>
+    </ul>
+    <p>When both players have entered their choice, click on "Shoot!"</p>
+    <hr>
+    <form method="post" id="process-game" enctype="multipart/form-data" action="results">
+        <input type="hidden" name="doc_id" value="{{ game_data.doc_id }}">
+        <p>
+        <input type="password" name="player_1_action" maxlength=1 placeholder="*" required>
+        <label for="player_1_action"> {{ game_data.player_1_name }} </label>
+        </p>
+        <p>
+            {% if game_data.game_mode == "single_player" %}
+                <input type="password" name="player_2_action" value="{{computer_action}}" maxlength=1 readonly="readonly" placeholder="X">
+                <label for="player_2_action"> {{ game_data.player_2_name }} </label>
+            {% else %}
+                <input type="password" name="player_2_action" maxlength=1 placeholder="*">
+                <label for="player_2_action"> {{ game_data.player_2_name }} </label>
+            {% endif %}
+        </p>
+        <p>
+        ROCK, PAPER, SCISSORS...
+        <button type="submit" value="Submit">Shoot!</button>
+        </p>
+
+    </form>
+    {% endif %}
+    {% endblock %}
+
+    
