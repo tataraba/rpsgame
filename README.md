@@ -41,6 +41,13 @@ uvicorn app.main:app --reload
 
 The `--reload` flag will refresh the page any time you make changes to the code base.
 
+## To Do
+
+This project is very much unfinished. A few enhancements are listed under the Issues, but at a high level, still need to:
+- Finalize the "Results" page and ensure the database is being updated accordingly for tracking purposes.
+- Add a little window-dressing to the Jinja/HTML templates (CSS and maybe htmx)
+- Fix and add tests
+- Review, update, and add documentation where needed
 
 ## License
 MIT
