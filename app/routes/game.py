@@ -86,7 +86,6 @@ def play_post(
         game_data["game_mode"] = game_mode
 
     context["game_data"] = game_data
-    print(context)
 
     return template.TemplateResponse("play_game.html", context=context)
 
@@ -116,4 +115,11 @@ def results_post(
             },
         )
 
-    game_data = db.load_game_by_id(doc_id) if doc_id else None
+    game_data = db.load_game_by_id(doc_id)
+    game_data["total_games"] += 1
+    data_model = GameTracker(**game_data)
+
+    if result := actions.compare_actions(player_1_action, player_2_action, data_model):
+        db.update_game_data(doc_id, **result)
+
+    return db.load_game_by_id(doc_id)

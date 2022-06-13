@@ -15,6 +15,7 @@ class GameTracker(BaseModel):
     player_1_score: int
     player_2_score: int
     ties: int
-    player_1_history: list
-    player_2_history: list
+    total_games: int
+    player_1_history: dict[int, str]
+    player_2_history: dict[int, str]
     last_winner: str

@@ -1,5 +1,5 @@
 import pytest
-from app.lib import actions
+from app.mylib import actions
 
 
 def test_user_action_correct_input():

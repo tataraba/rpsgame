@@ -62,8 +62,9 @@ def create_new_game(
         player_1_score=0,
         player_2_score=0,
         ties=0,
-        player_1_history=[],
-        player_2_history=[],
+        total_games=0,
+        player_1_history={},
+        player_2_history={},
         last_winner="",
     )
 
@@ -93,8 +94,10 @@ def load_game_by_id(doc_id: int):
     Args:
         game_id: The id of the game.
     """
-
-    return db.get(doc_id=doc_id)
+    game = db.get(doc_id=doc_id)
+    if not game:
+        raise AttributeError("Failed to load game.")
+    return game
 
 
 def load_game_by_name(save_file_name: str):
@@ -103,5 +106,17 @@ def load_game_by_name(save_file_name: str):
     Args:
         save_file_name: The name of the save file.
     """
+    game = db.get(where("save_file_name") == save_file_name)
+    if not game:
+        raise AttributeError("Failed to load game.")
+    return game
 
-    return db.get(where("save_file_name") == save_file_name)
+
+def update_game_data(doc_id: int, **kwargs):
+    """Update the game data.
+
+    Args:
+        doc_id: The id of the game.
+        **kwargs: The data to update.
+    """
+    db.update(kwargs, doc_ids=[doc_id])
