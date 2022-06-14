@@ -115,6 +115,13 @@ def results_post(
         change to Jinja response.
     """
 
+    context = {
+        "request": request,
+        "doc_id": doc_id,
+        "player_1_action": player_1_action,
+        "player_2_action": player_2_action,
+    }
+
     if not user_action(player_1_action):
         return template.TemplateResponse(
             "error.html",
@@ -135,8 +142,11 @@ def results_post(
     game_data = db.load_game_by_id(doc_id)
     game_data["total_games"] += 1
     data_model = GameTracker(**game_data)
+    print(game_data["last_winner"])
 
     if result := actions.compare_actions(player_1_action, player_2_action, data_model):
         db.update_game_data(doc_id, **result)
 
-    return db.load_game_by_id(doc_id)
+    context["results"] = db.load_game_by_id(doc_id)
+    print(context["results"])
+    return template.TemplateResponse("results.html", context=context)
