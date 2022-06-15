@@ -4,6 +4,15 @@
     {% block game %}
 
     <h2>Results</h1>
-        {{ game }}
+        <p>Great game!</p>
+        <p>{{ results.player_1_name }} chose {{ player_1_action }}</p>
+        <p>{{ results.player_2_name }} chose {{ player_2_action }}</p>
+
+        {% if results.last_winner == "tie" %}
+            <p>It's a tie!</p>
+        {% else %}
+        <p>Winner: {{ results.last_winner }}</p>
+        {% endif %}
+
 
     {% endblock %}
